@@ -37,6 +37,6 @@ jobs:
           git add -A
           timestamp=$(date -u)
           git commit -m "Latest data: ${timestamp}" &&
-            python send_mail.py ||
+            python lenta_scraper.py ||
             exit 0
           git push
