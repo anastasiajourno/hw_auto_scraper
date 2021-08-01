@@ -126,5 +126,5 @@ try:
     print(response.status_code)
     print(response.body)
     print(response.headers)
-    except Exception as e:
+except Exception as e:
     print(e.message)
