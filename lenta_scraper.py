@@ -100,26 +100,15 @@ df_lenta
 
 df_lenta.to_csv('df_lenta.csv', index=False)
 
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 message = Mail(
-    from_email=os.environ.get('FROM_EMAIL'),
-    to_emails=os.environ.get('TO_EMAIL'),
-    subject='Scraped content',
-    html_content="It's attached as an attachment.")
-
-# https://www.twilio.com/blog/sending-email-attachments-with-twilio-sendgrid-python
-with open('df_lenta.csv', 'rb') as f:
-    data = f.read()
-    f.close()
-encoded_file = base64.b64encode(data).decode()
-
-attachedFile = Attachment(
-    FileContent(encoded_file),
-    FileName('df_lenta.csv'),
-    FileType('text/csv'),
-    Disposition('attachment')
-)
-message.attachment = attachedFile
-
+    from_email='FROM_EMAIL',
+    to_emails='TO_EMAIL',
+    subject='Sending with Twilio SendGrid is Fun',
+    html_content='<strong>and easy to do anywhere, even with Python</strong>')
 try:
     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     response = sg.send(message)
