@@ -98,5 +98,5 @@ df_lenta
 # In[13]:
 
 
-df_lenta.to_csv('df_lenta.csv')
+df_lenta.to_csv('df_lenta.csv', index=False)
 
