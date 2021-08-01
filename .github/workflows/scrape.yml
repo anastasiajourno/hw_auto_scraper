@@ -5,7 +5,7 @@ on:
   #schedule:
   #  - cron: '*/30 * * * *'
 jobs:
-  scrape:
+  scrape and email:
     runs-on: ubuntu-latest
     steps: 
       - name: Check out this repo
@@ -15,28 +15,12 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install the necessary libraries
-        run: pip install requests beautifulsoup4 pandas
-      - name: Run our scraping script
+        run: pip install requests beautifulsoup4 pandas sendgrid
+      - name: Run the scraping script and send email
         run: python lenta_scraper.py
-      - name: Commit and push if content changed
-        run: |-
-          git config user.name "Automated"
-          git config user.email "actions@users.noreply.github.com"
-          git add -A
-          timestamp=$(date -u)
-          git commit -m "Latest data: ${timestamp}" || exit 0
-          git push
-      - name: Commit and push and email if content changed
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
-        run: |-
-          git config user.name "Automated"
-          git config user.email "actions@users.noreply.github.com"
-          git add -A
-          timestamp=$(date -u)
-          git commit -m "Latest data: ${timestamp}" &&
-            python lenta_scraper.py ||
-            exit 0
-          git push
+          
+        
