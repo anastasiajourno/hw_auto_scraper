@@ -5,7 +5,7 @@ on:
   #schedule:
   #  - cron: '*/30 * * * *'
 jobs:
-  scrape and email:
+  scrape_and_email:
     runs-on: ubuntu-latest
     steps: 
       - name: Check out this repo
