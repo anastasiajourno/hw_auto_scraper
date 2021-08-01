@@ -1,9 +1,9 @@
 name: scrape
 on:
   [push]
-  workflow_dispatch:
-  schedule:
-    - cron: '*/30 * * * *'
+  #workflow_dispatch:
+  #schedule:
+  #  - cron: '*/30 * * * *'
 jobs:
   scrape:
     runs-on: ubuntu-latest
